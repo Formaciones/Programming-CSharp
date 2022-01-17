@@ -2,7 +2,6 @@
 Ejemplos y ejercicíos de C#
 &nbsp;
 &nbsp;
----
 &nbsp;
 ### ***OPERADORES.md***
 * [*Operadores*](https://github.com/Formaciones/Programming-CSharp/blob/main/OPERADORES.md)
