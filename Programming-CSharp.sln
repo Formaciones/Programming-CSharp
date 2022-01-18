@@ -5,11 +5,15 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Review of CSharp Syntax", "01 Review of CSharp Syntax", "{2068923D-EDA0-4DB4-8F80-31EF5072BAD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formacion.CSharp.ConsoleApp1", "Formacion.CSharp.ConsoleApp1\Formacion.CSharp.ConsoleApp1.csproj", "{F3492099-8FC0-4F50-BC2C-5077C9DD1E2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formacion.CSharp.ConsoleApp1", "Formacion.CSharp.ConsoleApp1\Formacion.CSharp.ConsoleApp1.csproj", "{F3492099-8FC0-4F50-BC2C-5077C9DD1E2E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Creating Methods", "02 Creating Methods", "{6A43E399-A33C-4817-AF83-CB010B06D8B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formacion.CSharp.ConsoleApp2", "Formacion.CSharp.ConsoleApp2\Formacion.CSharp.ConsoleApp2.csproj", "{C08E6AA2-6EE4-43D3-A03E-7D2423B83F3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formacion.CSharp.ConsoleApp2", "Formacion.CSharp.ConsoleApp2\Formacion.CSharp.ConsoleApp2.csproj", "{C08E6AA2-6EE4-43D3-A03E-7D2423B83F3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ejercicios de CSharp", "Ejercicios de CSharp", "{592E8276-CCE0-41AC-9A18-3D8DB777D1D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formacion.CSharp.Ejercicios.ConsoleApp1", "Formacion.CSharp.Ejercicios.ConsoleApp1\Formacion.CSharp.Ejercicios.ConsoleApp1.csproj", "{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{C08E6AA2-6EE4-43D3-A03E-7D2423B83F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C08E6AA2-6EE4-43D3-A03E-7D2423B83F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C08E6AA2-6EE4-43D3-A03E-7D2423B83F3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F3492099-8FC0-4F50-BC2C-5077C9DD1E2E} = {2068923D-EDA0-4DB4-8F80-31EF5072BAD8}
 		{C08E6AA2-6EE4-43D3-A03E-7D2423B83F3B} = {6A43E399-A33C-4817-AF83-CB010B06D8B4}
+		{F5A5D174-3EDE-42EC-BDD7-3422FD206C01} = {592E8276-CCE0-41AC-9A18-3D8DB777D1D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {04C521DD-10E2-4617-97B5-93C4C5856A83}

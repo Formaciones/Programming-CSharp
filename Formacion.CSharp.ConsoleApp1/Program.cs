@@ -138,7 +138,15 @@ namespace Formacion.CSharp.ConsoleApp1
             Console.WriteLine(numeros2[5]);
 
             Alumno[] alumnos = new Alumno[20];
-            Alumno[] alumnos2 = { new Alumno() { Nombre = "Julian", Apellidos = "Sánchez", Edad = 24 }, new Alumno(), new Alumno() };
+            alumnos[0] = new Alumno();
+            alumnos[1] = new Alumno();
+
+            Alumno[] alumnos2 = { 
+                new Alumno() { Nombre = "Julian", Apellidos = "Sánchez", Edad = 24 }, 
+                new Alumno(), 
+                new Alumno() 
+            };
+
             Alumno[] alumnos3 = { new Alumno(), new Alumno(), new Alumno() };
 
             alumnos3[1].Nombre = "Ana María";
