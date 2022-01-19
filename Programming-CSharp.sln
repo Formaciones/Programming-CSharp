@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formacion.CSharp.ConsoleApp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ejercicios de CSharp", "Ejercicios de CSharp", "{592E8276-CCE0-41AC-9A18-3D8DB777D1D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formacion.CSharp.Ejercicios.ConsoleApp1", "Formacion.CSharp.Ejercicios.ConsoleApp1\Formacion.CSharp.Ejercicios.ConsoleApp1.csproj", "{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formacion.CSharp.Ejercicios.ConsoleApp1", "Formacion.CSharp.Ejercicios.ConsoleApp1\Formacion.CSharp.Ejercicios.ConsoleApp1.csproj", "{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Handling Exceptions", "03 Handling Exceptions", "{FFF38D99-F5D1-47A6-B8BF-9B84A60D88B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formacion.CSharp.ConsoleApp3", "Formacion.CSharp.ConsoleApp3\Formacion.CSharp.ConsoleApp3.csproj", "{D400B1D5-AB08-4606-A9B7-3BB66D1F536C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,10 @@ Global
 		{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5A5D174-3EDE-42EC-BDD7-3422FD206C01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D400B1D5-AB08-4606-A9B7-3BB66D1F536C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D400B1D5-AB08-4606-A9B7-3BB66D1F536C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D400B1D5-AB08-4606-A9B7-3BB66D1F536C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D400B1D5-AB08-4606-A9B7-3BB66D1F536C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +49,7 @@ Global
 		{F3492099-8FC0-4F50-BC2C-5077C9DD1E2E} = {2068923D-EDA0-4DB4-8F80-31EF5072BAD8}
 		{C08E6AA2-6EE4-43D3-A03E-7D2423B83F3B} = {6A43E399-A33C-4817-AF83-CB010B06D8B4}
 		{F5A5D174-3EDE-42EC-BDD7-3422FD206C01} = {592E8276-CCE0-41AC-9A18-3D8DB777D1D0}
+		{D400B1D5-AB08-4606-A9B7-3BB66D1F536C} = {FFF38D99-F5D1-47A6-B8BF-9B84A60D88B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {04C521DD-10E2-4617-97B5-93C4C5856A83}

@@ -32,6 +32,12 @@ namespace Formacion.CSharp.Ejercicios.ConsoleApp1
                 case "1":
                     CalcularLetraDNI();
                     break;
+                case "2":
+                    Tools.TrabajarConString();
+                    break;
+                case "3":
+                    Tools.TrabajarConNumeros();
+                    break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Clear();
@@ -97,15 +103,38 @@ namespace Formacion.CSharp.Ejercicios.Models
 namespace Formacion.CSharp.Ejercicios.Core
 {
     public static class Tools
-    { 
+    {
+
         // 2.   Preguntar una franse
         //      Printar la frase, la frase en mayúsculas y en minúsculas
         //      Pintar el número de letras
         //      Pintar cada letra con su posición
+        public static void TrabajarConString()
+        {
+            Console.Clear();
+            Console.Write("Escribre una frase: ");
+            string frase = Console.ReadLine();
+
+            Console.WriteLine($"Frase: {frase.ToUpper()}");
+            Console.WriteLine($"Frase: {frase.ToLower()}");
+            Console.WriteLine($"{frase.Length} caracteres");
+
+            for (int i = 0; i < frase.Length; i++)
+            {
+                Console.WriteLine($"Posición {i} -> {frase[i]}");
+            }
+        }
 
         // 3.   Preguntar un número
         //      Pintar raíz cuadrado, arco seno, la multiplicación pir PI utilizando el objeto Math.*
         //      Explorar la documentación de Math
+        public static void TrabajarConNumeros()
+        {
+            Console.Clear();
+            Console.Write("Escribre una número: ");
+            string frase = Console.ReadLine();
+        }
+
     }
 
 }
