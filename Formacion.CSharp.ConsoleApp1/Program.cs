@@ -20,6 +20,7 @@ namespace Formacion.CSharp.ConsoleApp1
                 Console.WriteLine("*  2. Conversión de Variables".PadRight(55) + "*");
                 Console.WriteLine("*  3. Variables Númericas Nulleables".PadRight(55) + "*");
                 Console.WriteLine("*  4. Propiedades de los Objetos".PadRight(55) + "*");
+                Console.WriteLine("*  5. Enumeraciones".PadRight(55) + "*");
                 Console.WriteLine("*  9. Salir".PadRight(55) + "*");
                 Console.WriteLine("*".PadRight(55) + "*");
                 Console.WriteLine("".PadRight(56, '*'));
@@ -44,6 +45,9 @@ namespace Formacion.CSharp.ConsoleApp1
                     case 4:
                         Console.Clear();
                         Console.WriteLine("Revisa el código del Objeto Persona." + Environment.NewLine);
+                        break;
+                    case 5:
+                        Enumeraciones();
                         break;
                     case 9:
                         return;
@@ -234,6 +238,25 @@ namespace Formacion.CSharp.ConsoleApp1
             //https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/operators/null-coalescing-operator
             r1 = Convert.ToInt32(n2 ?? 0);
         }
+
+        static void Enumeraciones()
+        {
+            Dia dia = Dia.Lunes;
+
+            Console.WriteLine($"Día de la Semana: {dia}");
+            Console.WriteLine($"Día de la Semana: {(int)dia}");
+
+            dia = (Dia)5;
+
+            Console.WriteLine($"Día de la Semana: {dia}");
+            Console.WriteLine($"Día de la Semana: {(int)dia}");
+
+            var estado = CodigoPedidos.Registrado;
+
+            Console.WriteLine($"Estado: {estado}");
+            Console.WriteLine($"Estado: {(int)estado}");
+
+        }
     }
 }
 
@@ -322,4 +345,12 @@ namespace Formacion.CSharp.Objects
             this.edad = 0;
         }
     }
+
+    /// <summary>
+    /// Objeto Día, construido como una enumeración
+    /// </summary>
+    public enum Dia { Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo };
+
+    public enum CodigoPedidos { Registrado = 100, Anulado = 900, Pendiente = 0, Enviado = 10 };
+    public enum CodigoPedidos2:byte { Registrado = 100, Anulado = 200, Pendiente = 0, Enviado = 10 };
 }
