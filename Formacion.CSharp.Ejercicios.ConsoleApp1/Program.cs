@@ -58,6 +58,12 @@ namespace Formacion.CSharp.Ejercicios.ConsoleApp1
 
 namespace Formacion.CSharp.Ejercicios.Models
 {
+    /// <summary>
+    /// EJERCICIO 1:
+    ///  - Define un Objeto Persona, con las propiedades Nombre, Apellidos y Edad
+    ///  - Declaramos la variable dni y la propiedad DNI
+    ///  - En el Get de la propiedad DNI calculamos la letra (modulo de 23)
+    /// </summary>
     public class Persona
     {
         private string[] letras = { "T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E" };
@@ -67,9 +73,13 @@ namespace Formacion.CSharp.Ejercicios.Models
         public int Edad { get; set; }
         public string DNI
         {
-            //Calculamos el modulo (resto de la división), al dividir el dni entre 23
-            //El modulo indica la posición del array, donde esta la letra del DNI
-            get 
+            ///////////////////////////////////////////////////////////////
+            //
+            //  Calculamos el modulo (resto de la división), al dividir el dni entre 23
+            //  El modulo indica la posición del array, donde esta la letra del DNI
+            //
+            ///////////////////////////////////////////////////////////////
+            get
             {
                 int dniNum = 0;
 
@@ -105,10 +115,14 @@ namespace Formacion.CSharp.Ejercicios.Core
     public static class Tools
     {
 
-        // 2.   Preguntar una franse
-        //      Printar la frase, la frase en mayúsculas y en minúsculas
-        //      Pintar el número de letras
-        //      Pintar cada letra con su posición
+
+        /// <summary>
+        /// EJERCICIO 2:
+        ///  - Preguntar una franse
+        ///  - Printar la frase, la frase en mayúsculas y en minúsculas
+        ///  - Pintar el número de letras
+        ///  - Pintar cada letra con su posición 
+        /// </summary>
         public static void TrabajarConString()
         {
             Console.Clear();
@@ -125,14 +139,25 @@ namespace Formacion.CSharp.Ejercicios.Core
             }
         }
 
-        // 3.   Preguntar un número
-        //      Pintar raíz cuadrado, arco seno, la multiplicación pir PI utilizando el objeto Math.*
-        //      Explorar la documentación de Math
+
+        /// <summary>
+        /// EJERCICIO 3:
+        ///  - Preguntar un número
+        ///  - Pintar raíz cuadrado, arco seno, la multiplicación pir PI utilizando el objeto Math.*
+        ///  - Explorar la documentación de Math
+        /// </summary>
         public static void TrabajarConNumeros()
         {
             Console.Clear();
             Console.Write("Escribre una número: ");
             string frase = Console.ReadLine();
+
+            int numero;
+            int.TryParse(frase, out numero);
+
+            Console.WriteLine($"Raíz Cuadrada: {Math.Sqrt(numero)}");
+            Console.WriteLine($"Arcoseno: {Math.Asin(numero)}");
+            Console.WriteLine($"+ PI: {Math.PI + numero}");
         }
 
     }
