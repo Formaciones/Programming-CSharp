@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using Formacion.CSharp.ConsoleApp5.Models;
+using System.Linq;
 
 
 namespace Formacion.CSharp.ConsoleApp5
@@ -9,7 +11,7 @@ namespace Formacion.CSharp.ConsoleApp5
     {
         static void Main(string[] args)
         {
-            DataAccessWithADO();
+            DataAccessWithEFCore();
         }
 
         static void DataAccessWithADO()
@@ -61,7 +63,60 @@ namespace Formacion.CSharp.ConsoleApp5
         }
 
         static void DataAccessWithEFCore()
-        { }
+        {
+            var context = new ModelNorthwind();
+
+            // Modificar un registro.
+            // SQL: SELECT * FROM dbo.Customers WHERE CustomerID = 'ANATR'
+
+            var cliente1a = context.Customers
+                .Where(r => r.CustomerID == "ANATR")
+                .ToList();
+
+            cliente1a[0].CompanyName = "";
+
+            var cliente1c = context.Customers
+                .Where(r => r.CustomerID == "ANATR")
+                .FirstOrDefault();
+
+            Console.WriteLine($"Contacto: {cliente1c.ContactName}");
+            cliente1c.ContactName = "Borja Cabeza";
+            context.SaveChanges();
+
+
+            var cliente1b = from r in context.Customers
+                            where r.CustomerID == "ANATR"
+                            select r;
+
+            Console.ReadKey();
+
+            // Lectura de datos de una Tabla
+            // SQL: SELECT * FROM dbo.Customers
+
+            var clientes1a = context.Customers.ToList();
+
+            var clientes1b = from r in context.Customers
+                             select r;
+
+            // SQL: SELECT * FROM dbo.Customers WHERE Country = 'Spain' ORDER BY City
+
+            var clientes2a = context.Customers
+                .Where(r => r.Country == "Spain")
+                .OrderBy(r => r.City)
+                .ToList();
+
+            var clientes2b = from r in context.Customers
+                             where r.Country == "Spain"
+                             orderby r.City
+                             select r;
+
+            foreach (var cliente in clientes1a)
+                Console.WriteLine($"{cliente.CustomerID} {cliente.CompanyName} - {cliente.City}");
+
+
+            Console.ReadKey();
+
+        }
 
 
     }
