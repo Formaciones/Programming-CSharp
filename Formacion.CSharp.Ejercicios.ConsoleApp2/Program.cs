@@ -113,13 +113,29 @@ namespace Formacion.CSharp.Ejercicios.ConsoleApp2
         {
             //Buscar Productos con un precio mayor a 2
             //Ordenar DESC por Descripción
+            var resultado1a = DataLists.ListaProductos
+                .Where(r => r.Precio > 2)
+                .OrderByDescending(r => r.Descripcion)  
+                .Select(r => r.Descripcion);
+
+            var resultado1b = from r in DataLists.ListaProductos
+                              where r.Precio > 2
+                              orderby r.Descripcion descending
+                              select r.Descripcion;
+
+            foreach (var item in resultado1a) Console.WriteLine($"{item}");
+
+            Console.ReadKey();
 
             //Buscar Clientes con más de 50 años
             //DateTime.Now.Year - FechaNac.Year = Edad
 
+
             //Listado de Clientes ordenador por Fecha de Nacimiento
 
-            //Listado de Pedidos que hallan comparado el producto 2 (Cuaderno Grande)
+
+            //Listado de Pedidos donde se compran el producto 2 (Cuaderno Grande)
+
 
             //Pedidos realizados en el mes de Octubre (10)
         }
