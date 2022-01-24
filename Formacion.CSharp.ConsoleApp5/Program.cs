@@ -66,27 +66,80 @@ namespace Formacion.CSharp.ConsoleApp5
         {
             var context = new ModelNorthwind();
 
+            // Eliminar uno o varios registro
+
+            // Paso 1: Posicionar en uno o varios registros
+            // SQL: SELECT * FROM dbo.Customers WHERE CustomerID = 'DEMO2'
+
+            var cliente2a = context.Customers
+                .Where(r => r.CustomerID == "DEMO2")
+                .FirstOrDefault();
+
+            var cliente2b = (from r in context.Customers
+                             where r.CustomerID == "DEMO2"
+                             select r).FirstOrDefault();
+
+            //Paso 2: Eliminar datos y guardar cambios
+            //DELETE FROM dbo.Customers WHERE CustomerID = "DEMO2"
+
+            context.Customers.Remove(cliente2a);
+            context.SaveChanges();
+
+            Console.WriteLine("Registro eliminado correctamente.");
+            Console.ReadKey();
+
+
+            // Insertar un nuevo registro.
+            // INSERT INTO dbo.Customers (CustomerID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax)
+            // VALUES ('DEMO1', 'Uno, SL', 'Borja Cabeza', 'Generente', 'Calle Uno, 1', 'Madrid', '', '28010', 'España', '200100100', '200100101')
+
+            var nuevoCliente = new Customer()
+            {
+                CustomerID = "DEMO1",
+                CompanyName = "Uno, SL",
+                ContactName = "Borja Cabeza",
+                ContactTitle = "Gerente",
+                Address = "Calle Uno, 1",
+                City = "Madrid",
+                Region = "",
+                PostalCode = "28010",
+                Country = "España",
+                Phone = "200-100-100",
+                Fax = "200-100-101"
+            };
+
+            context.Customers.Add(nuevoCliente);
+            context.SaveChanges();
+
+            Console.WriteLine("Nuevo registro insertado.");
+            Console.ReadKey();
+
+
+
             // Modificar un registro.
+
+            // Paso 1: Posicionar en uno o varios registros
             // SQL: SELECT * FROM dbo.Customers WHERE CustomerID = 'ANATR'
 
             var cliente1a = context.Customers
                 .Where(r => r.CustomerID == "ANATR")
                 .ToList();
 
-            cliente1a[0].CompanyName = "";
-
-            var cliente1c = context.Customers
+            var cliente1b = context.Customers
                 .Where(r => r.CustomerID == "ANATR")
                 .FirstOrDefault();
 
-            Console.WriteLine($"Contacto: {cliente1c.ContactName}");
+            var cliente1c = (from r in context.Customers
+                            where r.CustomerID == "ANATR"
+                            select r).FirstOrDefault();
+
+
+            //Paso 2: Modificar datos y guardar cambios
+            //UPDATE dbo.Customers SET ContactName = 'Borja Cabeza' WHERE CustomerID = 'ANATR'
+
             cliente1c.ContactName = "Borja Cabeza";
             context.SaveChanges();
 
-
-            var cliente1b = from r in context.Customers
-                            where r.CustomerID == "ANATR"
-                            select r;
 
             Console.ReadKey();
 
