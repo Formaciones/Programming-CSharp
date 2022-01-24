@@ -8,7 +8,7 @@ namespace Formacion.CSharp.Ejercicios.ConsoleApp2
     {
         static void Main(string[] args)
         {
-            Ejercicios();
+            Busquedas();
             Console.ReadKey(); 
         }
 
@@ -107,6 +107,61 @@ namespace Formacion.CSharp.Ejercicios.ConsoleApp2
 
             foreach (var item in resultado5b) Console.WriteLine($"{item.Descripcion} {item.Precio.ToString("N2")}");
             Console.WriteLine(Environment.NewLine);
+        }
+
+        static void Busquedas()
+        {
+            //Contains -> continene
+            //StartsWith -> comienza por
+            //EndsWith -> finaliza por
+
+            var resultado1a = DataLists.ListaProductos
+                .Where(r => r.Descripcion.ToLower().Contains("cuaderno"))
+                .Select(r => r)
+                .ToList();
+
+            var resultado1b = from r in DataLists.ListaProductos
+                              where r.Descripcion.ToLower().Contains("cuaderno")
+                              select r;
+
+            foreach (var item in resultado1a) Console.WriteLine(item.Descripcion);
+            Console.WriteLine($"Número de Productos: {resultado1a.Count}");
+
+            //Funciones de Agregación
+            //Count -> Cuentas elementos
+            //Max -> Máximo valor
+            //Min -> Minimo valor
+            //Average -> Media de los valores
+            //Sum -> Suma valores
+            //Aggregate -> Aplicar formula (función o método) personalizada a los valores
+
+            var resultado2a = DataLists.ListaProductos
+                .Count(r => r.Descripcion.ToLower().Contains("cuaderno"));
+
+            var resultado2b = (from r in DataLists.ListaProductos
+                              where r.Descripcion.ToLower().Contains("cuaderno")
+                              select r).Count();
+
+            Console.WriteLine($"Número de Productos: {resultado2a}");
+
+            // El primer registro con el precio más alto
+            var resultado3a = DataLists.ListaProductos
+                .OrderByDescending(r => r.Precio)
+                .FirstOrDefault();
+
+            // Todos productos con el precio igual al precio más alto
+            var resultado3c = DataLists.ListaProductos
+                .Where(r => r.Precio == DataLists.ListaProductos.Max(r => r.Precio))
+                .ToList();
+
+            // El precio más alto de todos los productos
+            var resultado3b = DataLists.ListaProductos
+                .Max(r => r.Precio);
+
+
+
+
+            Console.WriteLine("END");
         }
 
         static void Ejercicios()

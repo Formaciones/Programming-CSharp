@@ -11,7 +11,7 @@ namespace Formacion.CSharp.ConsoleApp5
     {
         static void Main(string[] args)
         {
-            DataAccessWithEFCore();
+            DataAccessWithEFCore2();
         }
 
         static void DataAccessWithADO()
@@ -171,6 +171,19 @@ namespace Formacion.CSharp.ConsoleApp5
 
         }
 
+        static void DataAccessWithEFCore2()
+        {
+            //Precio más alto, más bajo y el precio medio de la tabla productos
+
+            //Número de productos donde el precio este por encima de la media
+
+            //Listado de Productos que sean quesos
+
+            //Listado de Productos que sean de la categoria Bebidas 
+
+            //Listado de Productos que sean de la categoria Bebidas cuyo precio este por debajo de la media
+
+        }
 
     }
 }
