@@ -2,7 +2,7 @@
 ### ***Las herramientas de la interfaz de línea de comandos (CLI) Entity Framework Core realizar tareas de desarrollo en tiempo de diseño.***
 &nbsp;
 &nbsp;
-### ***INSTALACIÓN DE DEPENDENCIAS ***
+### ***INSTALACIÓN DE DEPENDENCIAS***
 ---
 ***Instalación indicando última versión***
 ```
