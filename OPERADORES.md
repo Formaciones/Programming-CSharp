@@ -52,5 +52,5 @@
 | Operador | Descripción | Uso |
 | ----------- | ----------- | ----------- |
 | && (AND) | 	Devuelve True si ambos operandos son True | 	a and b |
-| || (OR) | 	Devuelve True si alguno de los operandos es True | 	a or b |
+| &#124;&#124; (OR) | 	Devuelve True si alguno de los operandos es True | 	a or b |
 | ! (Negación Lógica) | 	Devuelve True si alguno de los operandos False | 	not a |
