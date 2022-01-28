@@ -83,7 +83,7 @@ Ejemplos y ejercicíos de C#
 * Ejemplos de LINQ
 * ***EJERCICIO 1:*** Buscar Productos con un precio mayor a 2 y ordenar DESC por Descripción
 * ***EJERCICIO 2:*** Buscar Clientes con más de 50 años
-* ***EJERCICIO 3 *** Listado de Clientes ordenador por Fecha de Nacimiento
+* ***EJERCICIO 3:*** Listado de Clientes ordenador por Fecha de Nacimiento
 * ***EJERCICIO 4:*** Listado de Pedidos donde se compran el producto 2 (Cuaderno Grande)
 * ***EJERCICIO 5:*** Pedidos realizados en el mes de Octubre
 
