@@ -12,6 +12,9 @@ namespace Formacion.CSharp.Ejercicios.ConsoleApp2
             Console.ReadKey(); 
         }
 
+        /// <summary>
+        /// Operaciones de búsqueda básicas
+        /// </summary>
         static void BusquedasBasicas()
         {
             //SQL: SELECT * FROM dbo.ListaProductos
@@ -109,8 +112,54 @@ namespace Formacion.CSharp.Ejercicios.ConsoleApp2
             Console.WriteLine(Environment.NewLine);
         }
 
+        /// <summary>
+        /// Otras operaciones de búqueda
+        /// </summary>
         static void Busquedas()
         {
+            //Listado de Pedidos por cliente
+            //Con Agrupación
+            var pedidos2a = DataLists.ListaPedidos
+                .GroupBy(r => r.IdCliente)
+                .ToList();
+
+            var pedidos2b = from r in DataLists.ListaPedidos
+                            group r by r.IdCliente;
+
+
+            foreach (var item in pedidos2a)
+            {
+                Console.WriteLine($"Cliente: {item.Key}");
+                //Console.WriteLine($"Cliente: {DataLists.ListaClientes.Where(r => r.Id == item.Key).Select(r => r.Nombre).FirstOrDefault()}");
+                Console.WriteLine("=========================================================");
+                
+                foreach (var pedido in item) Console.WriteLine($"{pedido.Id} - {pedido.FechaPedido.ToShortDateString()}");
+                Console.WriteLine(Environment.NewLine);
+            }
+            Console.ReadKey();
+
+            //Listado de Pedidos por cliente
+            //Sin Agrupación
+
+            var clientes = DataLists.ListaClientes.ToList();
+            var clientes2 = from r in DataLists.ListaClientes
+                            select r;
+
+            foreach (var cliente in clientes)
+            {
+                Console.WriteLine($"Cliente: {cliente.Id}# {cliente.Nombre}");
+                Console.WriteLine("=========================================================");
+
+                var pedidos = DataLists.ListaPedidos
+                    .Where(r => r.IdCliente == cliente.Id)
+                    .ToList();
+
+                foreach (var pedido in pedidos) Console.WriteLine($"{pedido.Id} - {pedido.FechaPedido.ToShortDateString()}");
+                Console.WriteLine(Environment.NewLine);
+            }
+
+            Console.ReadKey();
+
             //Contains -> continene
             //StartsWith -> comienza por
             //EndsWith -> finaliza por
@@ -158,12 +207,12 @@ namespace Formacion.CSharp.Ejercicios.ConsoleApp2
             var resultado3b = DataLists.ListaProductos
                 .Max(r => r.Precio);
 
-
-
-
             Console.WriteLine("END");
         }
 
+        /// <summary>
+        /// Ejercicios de LINQ
+        /// </summary>
         static void Ejercicios()
         {
             //Buscar Productos con un precio mayor a 2

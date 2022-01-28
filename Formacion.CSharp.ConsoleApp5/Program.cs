@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Formacion.CSharp.ConsoleApp5.Models;
 using System.Linq;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Formacion.CSharp.ConsoleApp5
 {
@@ -11,179 +11,236 @@ namespace Formacion.CSharp.ConsoleApp5
     {
         static void Main(string[] args)
         {
-            DataAccessWithEFCore2();
+            TrabajandoConEF();
         }
 
-        static void DataAccessWithADO()
+        /// <summary>
+        /// ADO.NET Access Data Object (manejamos la base de datos con Transat-SQL)
+        /// </summary>
+        static void TrabajandoConADONET()
         {
-            // ADO, Access Data Objects
+            //Consulta de Datos - SELECT
+            //Equivalente a: SELECT * FROM Customers
 
-            //Constructor de cadenas de conexión
-            var cb = new SqlConnectionStringBuilder();
-
-            cb.DataSource = "LOCALHOST";        //Servidor
-            cb.InitialCatalog = "NORTHWIND";    //Base de datos
-            cb.UserID = "";                     //Login de la base de datos
-            cb.Password = "";                   //Contraseña del Login
-            cb.IntegratedSecurity = true;       //true, utiliza el usuario del Sistema Operativo
-            
-            string conexion = cb.ToString();
-            Console.WriteLine($"Cadena de Conexión: {conexion}");
-
-            //Objeto de conexión a Base de Datos
-            var cn = new SqlConnection(conexion);
-            cn.Open();
-
-            //Objeto comnado para la Base de Datos
-            var cm = new SqlCommand();
-            cm.Connection = cn;
-            cm.CommandText = "SELECT * FROM dbo.Customers WHERE Country = 'Spain' ORDER BY City";
-
-            //Objeto lector de registro de la Base de Datos           
-            SqlDataReader reader = cm.ExecuteReader();      //SELECT
-
-            //int registros = cm.ExecuteNonQuery();         //INSERT UPDATE DELETE
-
-            Console.WriteLine($"Existen Registros: {reader.HasRows}");
-            if (reader.HasRows)
+            //Creamos un objeto para definir la cadena de conexión
+            var connectionString = new SqlConnectionStringBuilder()
             {
-                //El método .Read() devuelve True si quedan más registros y False si no hay más registros.
-                while (reader.Read())
-                {
-                    Console.WriteLine($"{reader["CustomerID"]} {reader["CompanyName"]} - {reader["Country"]}");
-                }
-            }
-            else Console.WriteLine("NO SE HAN ENCONTRADO REGISTROS.");
-
-            cm.Dispose();
-            cn.Close();
-            cn.Dispose();
-
-            Console.ReadKey();  
-        }
-
-        static void DataAccessWithEFCore()
-        {
-            var context = new ModelNorthwind();
-
-            // Eliminar uno o varios registro
-
-            // Paso 1: Posicionar en uno o varios registros
-            // SQL: SELECT * FROM dbo.Customers WHERE CustomerID = 'DEMO2'
-
-            var cliente2a = context.Customers
-                .Where(r => r.CustomerID == "DEMO2")
-                .FirstOrDefault();
-
-            var cliente2b = (from r in context.Customers
-                             where r.CustomerID == "DEMO2"
-                             select r).FirstOrDefault();
-
-            //Paso 2: Eliminar datos y guardar cambios
-            //DELETE FROM dbo.Customers WHERE CustomerID = "DEMO2"
-
-            context.Customers.Remove(cliente2a);
-            context.SaveChanges();
-
-            Console.WriteLine("Registro eliminado correctamente.");
-            Console.ReadKey();
-
-
-            // Insertar un nuevo registro.
-            // INSERT INTO dbo.Customers (CustomerID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax)
-            // VALUES ('DEMO1', 'Uno, SL', 'Borja Cabeza', 'Generente', 'Calle Uno, 1', 'Madrid', '', '28010', 'España', '200100100', '200100101')
-
-            var nuevoCliente = new Customer()
-            {
-                CustomerID = "DEMO1",
-                CompanyName = "Uno, SL",
-                ContactName = "Borja Cabeza",
-                ContactTitle = "Gerente",
-                Address = "Calle Uno, 1",
-                City = "Madrid",
-                Region = "",
-                PostalCode = "28010",
-                Country = "España",
-                Phone = "200-100-100",
-                Fax = "200-100-101"
+                DataSource = "LOCALHOST",
+                InitialCatalog = "NORTHWIND",
+                UserID = "",
+                Password = "",
+                IntegratedSecurity = true,
+                ConnectTimeout = 60
             };
 
-            context.Customers.Add(nuevoCliente);
-            context.SaveChanges();
+            //Muestra la cadena de conexión resultante con los datos introducidos
+            Console.WriteLine("Cadena de Conexión: {0}", connectionString.ToString());
 
-            Console.WriteLine("Nuevo registro insertado.");
-            Console.ReadKey();
+            //Creamos un objeto conexión, representa la conexión con la base de datos
+            var connect = new SqlConnection()
+            {
+                ConnectionString = connectionString.ToString()
+            };
+
+            Console.WriteLine($"Estado: {connect.State.ToString()}");
+            connect.Open();
+            Console.WriteLine($"Estado: {connect.State.ToString()}");
+
+            //Creamos un objeto Command que nos permite lanzar comando contra la base de datos
+            var command = new SqlCommand()
+            {
+                Connection = connect,
+                CommandText = "SELECT * FROM dbo.Customers"
+            };
+
+            //Creamos un objeto que funcione como curso, permitiendo recorrer los datos retornados por la base de datos
+            var reader = command.ExecuteReader();
+
+            if (reader.HasRows == false) Console.WriteLine("Registros no encontrados.");
+            else
+            {
+                while (reader.Read() == true)
+                {
+                    Console.WriteLine($"ID: {reader["CustomerID"]}");
+                    Console.WriteLine($"Empresa: {reader.GetValue(1)}");
+                    Console.WriteLine($"Pais: {reader["Country"]}" + Environment.NewLine);
+                }
+            }
+
+            //Cerramos conexiones y destruimos variables
+            reader.Close();
+            command.Dispose();
+            connect.Close();
+            connect.Dispose();
+        }
+
+        /// <summary>
+        /// EntityFramework (manejamos las base de datos como colecciones)
+        /// </summary>
+        static void TrabajandoConEF()
+        {
+            //Instanciamos la clase del contexto, representa el acceso a la base de datos
+            var context = new ModelNorthwind();
 
 
+            //Consulta de Datos - SELECT
+            //Equivalente a: SELECT * FROM Customers
 
-            // Modificar un registro.
-
-            // Paso 1: Posicionar en uno o varios registros
-            // SQL: SELECT * FROM dbo.Customers WHERE CustomerID = 'ANATR'
-
-            var cliente1a = context.Customers
-                .Where(r => r.CustomerID == "ANATR")
+            var clientes = context.Customers
                 .ToList();
 
-            var cliente1b = context.Customers
-                .Where(r => r.CustomerID == "ANATR")
-                .FirstOrDefault();
+            var clientes2 = from c in context.Customers
+                            select c;
 
-            var cliente1c = (from r in context.Customers
-                            where r.CustomerID == "ANATR"
-                            select r).FirstOrDefault();
-
-
-            //Paso 2: Modificar datos y guardar cambios
-            //UPDATE dbo.Customers SET ContactName = 'Borja Cabeza' WHERE CustomerID = 'ANATR'
-
-            cliente1c.ContactName = "Borja Cabeza";
-            context.SaveChanges();
-
-
-            Console.ReadKey();
-
-            // Lectura de datos de una Tabla
-            // SQL: SELECT * FROM dbo.Customers
-
-            var clientes1a = context.Customers.ToList();
-
-            var clientes1b = from r in context.Customers
-                             select r;
-
-            // SQL: SELECT * FROM dbo.Customers WHERE Country = 'Spain' ORDER BY City
-
-            var clientes2a = context.Customers
+            var clientes3 = context.Customers
                 .Where(r => r.Country == "Spain")
                 .OrderBy(r => r.City)
                 .ToList();
 
-            var clientes2b = from r in context.Customers
-                             where r.Country == "Spain"
-                             orderby r.City
-                             select r;
+            var clientes4 = from c in context.Customers
+                            where c.Country == "Spain"
+                            orderby c.City
+                            select c;
 
-            foreach (var cliente in clientes1a)
-                Console.WriteLine($"{cliente.CustomerID} {cliente.CompanyName} - {cliente.City}");
+            foreach (var c in clientes3)
+            {
+                Console.WriteLine($"ID: {c.CustomerID}");
+                Console.WriteLine($"Empresa: {c.CompanyName}");
+                Console.WriteLine($"Pais: {c.Country}" + Environment.NewLine);
+            }
 
 
-            Console.ReadKey();
+            //Insertar Datos - INSERT
+            //Equivalente a: INSERT INTO Customers VALUES(..., ..., )
 
+            var cliente = new Customer();
+
+            cliente.CustomerID = "DEMO1";
+            cliente.CompanyName = "Empresa Uno, SL";
+            cliente.ContactName = "Borja Cabeza";
+            cliente.ContactTitle = "Gerente";
+            cliente.Address = "Avenida del Mediterraneo, 10";
+            cliente.PostalCode = "28010";
+            cliente.City = "Madrid";
+            cliente.Country = "Spain";
+            cliente.Phone = "910 000 001";
+            cliente.Fax = "910 000 002";
+
+            context.Customers.Add(cliente);
+            context.SaveChanges();
+
+
+            //Modificar Datos - UPDATE
+            //Equivalente a: UPDATE Customers SET CompanyName = 'nuevo valor' WHERE CustomerID = 'DEMO1'
+
+            var cliente2a = context.Customers
+                .Where(r => r.CustomerID == "DEMO1")
+                .FirstOrDefault();
+
+            cliente2a.CompanyName = "Empresa Uno Dos y Tres, SL";
+            cliente2a.PostalCode = "28014";
+
+
+            var cliente2b = (from c in context.Customers
+                             where c.CustomerID == "DEMO1"
+                             select c).FirstOrDefault();
+
+            cliente2b.CompanyName = "Empresa Uno Dos y Tres, SL";
+            cliente2b.PostalCode = "28014";
+
+            context.SaveChanges();
+
+
+            //Eliminar Datos - DELETE
+            //Equivalente a: DELETE Customers WHERE CustomerID = 'DEMO1'
+
+            //Elimina el registro con CustomerID igual a DEMO1
+            //context.Customers.Remove(context.Customers.Where(r => r.CustomerID == "DEMO1").FirstOrDefault());
+
+            //Elimina todos los registros donde País es igual a Spain
+            //context.Customers.RemoveRange(context.Customers.Where(r => r.Country == "Spain").ToList());
+
+            var cliente3a = context.Customers
+                .Where(r => r.CustomerID == "DEMO1")
+                .FirstOrDefault();
+
+            context.Customers.Remove(cliente3a);
+            context.SaveChanges();
         }
 
-        static void DataAccessWithEFCore2()
+        /// <summary>
+        /// EntityFramework, sentencia GroupBy
+        /// </summary>
+        static void TrabajandoConEFGroupBy()
         {
-            //Precio más alto, más bajo y el precio medio de la tabla productos
+            var context = new ModelNorthwind();
 
-            //Número de productos donde el precio este por encima de la media
+            //Listado de Pedidos por cliente
+            var pedidos = context.Orders
+                .GroupBy(r => r.CustomerID)
+                .AsEnumerable();
 
-            //Listado de Productos que sean quesos
+            var pedidos2 = from r in context.Orders
+                           group r by r.CustomerID into g
+                           select g;
 
-            //Listado de Productos que sean de la categoria Bebidas 
+            //Lineas de Pedidos por Pedido
+            var pedidosLineas = context.Order_Details
+                .GroupBy(r => r.OrderID);
 
-            //Listado de Productos que sean de la categoria Bebidas cuyo precio este por debajo de la media
+            var pedidosLineas2 = from r in context.Order_Details
+                           group r by r.OrderID into g
+                           select g;
+
+            foreach (var pedido in pedidosLineas)
+            {
+                Console.WriteLine($"Número de Pedido: {pedido.Key}");
+                foreach (var linea in pedido)
+                {
+                    Console.WriteLine($"Producto: {linea.ProductID} Cantidad: {linea.Quantity} Precio: {linea.UnitPrice}");
+                }
+            }
 
         }
 
+        /// <summary>
+        /// EntityFramework, sentencias Join
+        /// </summary>
+        static void TrabajandoConEFInclude()
+        {
+            var context = new ModelNorthwind();
+
+            //SELECT * FROM dbo.Customers WHERE CustomerID = 'ANATR';
+            var cliente = context.Customers
+                .Where(r => r.CustomerID == "ANATR")
+                .FirstOrDefault();
+
+            //SELECT * FROM dbo.Orders WHERE CustomerID = 'ANATR';
+            var pedidos = context.Orders
+                .Where(r => r.CustomerID == "ANATR")
+                .ToList();
+
+            //SELECT* FROM dbo.Customers
+            //   JOIN dbo.Orders
+            //   ON dbo.Customers.CustomerID = dbo.Orders.CustomerID
+            //   WHERE dbo.Customers.CustomerID = 'ANATR';
+
+            var cliente2 = context.Customers
+                .Include(r => r.Orders)
+                .Where(r => r.CustomerID == "ANATR")
+                .FirstOrDefault();
+
+            var cliente2b = (from c in context.Customers
+                             join o in context.Orders on c.CustomerID equals o.CustomerID
+                             where c.CustomerID == "ANATR"
+                             select c).FirstOrDefault();
+
+            Console.WriteLine("Cliente: {0}", cliente2.CompanyName);
+
+            foreach (var p in cliente2.Orders)
+            {
+                Console.WriteLine("Pedido Núm: {0}", p.OrderID);
+            }
+        }
     }
 }
